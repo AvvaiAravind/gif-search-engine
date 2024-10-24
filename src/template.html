@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <title>Gif Search</title>
     <script src="index.js"></script>
     <link rel="stylesheet" href="./style.css" />
     <link
@@ -12,5 +12,28 @@
     />
     <!-- for using font awesome icons -->
   </head>
-  <body></body>
+  <body>
+    <header><h1>Gif Serach Engine</h1></header>
+    <section class="image-container">
+      <figure>
+        <div class="image-section"></div>
+        <figcaption></figcaption>
+      </figure>
+    </section>
+
+    <section class="form-container">
+      <form role="searchbox">
+        <label for="search">Search Box</label>
+        <input
+          type="text"
+          name="search field"
+          id="search"
+          required
+          autocomplete="on"
+          autofocus
+        />
+        <button type="button" role="search">Search</button>
+      </form>
+    </section>
+  </body>
 </html>

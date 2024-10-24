@@ -22,7 +22,7 @@ canvas,
 svg {
   display: block;
   max-width: 100%;
-  height: auto;
+  height: 100%;
 }
 
 input,
@@ -46,3 +46,30 @@ h6 {
 #__next {
   isolation: isolate;
 } */
+
+.image-section {
+  margin: 10px auto;
+  max-width: 500px;
+  height: 400px;
+  border: 2px solid black;
+}
+
+form {
+  margin-top: 15px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+}
+
+header,
+figcaption {
+  text-align: center;
+}
+
+@media only screen and (min-width: 425px) {
+  form {
+    flex-direction: row;
+  }
+}
