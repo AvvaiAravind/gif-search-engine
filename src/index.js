@@ -26,7 +26,7 @@ document.addEventListener("keydown", (e) => {
   }
 });
 
-function searchFunc() {
+async function searchFunc() {
   const API = `5HYMfAaVa6O12VZ6di8nQx7Fj1fKqZVn`;
   const input = document.querySelector("input").value.trim();
   const img = document.createElement("img");
@@ -39,38 +39,36 @@ function searchFunc() {
   let url = `https://api.giphy.com/v1/gifs/search?api_key=${API}&limit=1&q=`;
   url = url.concat(input);
 
-  fetch(url)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error(
-          `There was an issue with your request ${response.status}. Please try again.`
-        );
-      }
+  try {
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(
+        `There was an issue with your request (Status: ${response.status}). Please try again.`
+      );
+    }
 
-      return response.json();
-    })
-    .then((response) => {
-      if (response.data.length === 0) {
-        // If no results were found for the given search term
-        throw new Error(
-          "No GIFs found for the entered search term. Please try something else."
-        );
-      }
-      console.log(response.data[0].images);
-      console.log(response.meta);
-      img.src = response.data[0].images.original.url;
-      img.title = response.data[0].alt_text;
-      caption.textContent = response.data[0].title;
-      img.alt = response.data[0].title;
-      searchBtn.removeAttribute("disabled");
-      document.querySelector("input").value = "";
-    })
-    .catch((error) => {
-      alert(error);
-      searchBtn.removeAttribute("disabled");
-      document.querySelector("input").value = "";
-      caption.textContent = "";
-    });
+    const responseDetails = await response.json();
+
+    if (responseDetails.data.length === 0) {
+      throw new Error(
+        `No GIFs found for the entered search term. Please try something else `
+      );
+    }
+    console.log(responseDetails.data[0].images);
+
+    img.src = responseDetails.data[0].images.original.url;
+    img.src = responseDetails.data[0].images.original.url;
+    img.title = responseDetails.data[0].alt_text;
+    caption.textContent = responseDetails.data[0].title;
+    img.alt = responseDetails.data[0].title;
+    searchBtn.removeAttribute("disabled");
+    document.querySelector("input").value = "";
+  } catch (error) {
+    alert(error);
+    searchBtn.removeAttribute("disabled");
+    document.querySelector("input").value = "";
+    caption.textContent = "";
+  }
   appendElement(".image-section", img);
 }
 
